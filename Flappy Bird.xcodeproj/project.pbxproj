@@ -7,14 +7,21 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		A6C58BA61AD730260082ACCD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6C58BA51AD730260082ACCD /* AppDelegate.swift */; };
-		A6C58BA81AD730260082ACCD /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = A6C58BA71AD730260082ACCD /* GameScene.sks */; };
-		A6C58BAA1AD730260082ACCD /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6C58BA91AD730260082ACCD /* GameScene.swift */; };
-		A6C58BAC1AD730260082ACCD /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6C58BAB1AD730260082ACCD /* GameViewController.swift */; };
-		A6C58BAF1AD730260082ACCD /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A6C58BAD1AD730260082ACCD /* Main.storyboard */; };
-		A6C58BB11AD730260082ACCD /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A6C58BB01AD730260082ACCD /* Images.xcassets */; };
-		A6C58BB41AD730260082ACCD /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = A6C58BB21AD730260082ACCD /* LaunchScreen.xib */; };
 		A6C58BC01AD730260082ACCD /* Flappy_BirdTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6C58BBF1AD730260082ACCD /* Flappy_BirdTests.swift */; };
+		A6C58BCF1AD730770082ACCD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6C58BCA1AD730770082ACCD /* AppDelegate.swift */; };
+		A6C58BD01AD730770082ACCD /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6C58BCB1AD730770082ACCD /* GameScene.swift */; };
+		A6C58BD11AD730770082ACCD /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6C58BCC1AD730770082ACCD /* GameViewController.swift */; };
+		A6C58BD21AD730770082ACCD /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A6C58BCD1AD730770082ACCD /* Main.storyboard */; };
+		A6C58BD31AD730770082ACCD /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A6C58BCE1AD730770082ACCD /* Images.xcassets */; };
+		A6C58BDE1AD730960082ACCD /* bg.png in Resources */ = {isa = PBXBuildFile; fileRef = A6C58BD51AD730960082ACCD /* bg.png */; };
+		A6C58BDF1AD730960082ACCD /* bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A6C58BD61AD730960082ACCD /* bg@2x.png */; };
+		A6C58BE01AD730960082ACCD /* bird1.png in Resources */ = {isa = PBXBuildFile; fileRef = A6C58BD71AD730960082ACCD /* bird1.png */; };
+		A6C58BE11AD730960082ACCD /* bird1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A6C58BD81AD730960082ACCD /* bird1@2x.png */; };
+		A6C58BE21AD730960082ACCD /* bird2.png in Resources */ = {isa = PBXBuildFile; fileRef = A6C58BD91AD730960082ACCD /* bird2.png */; };
+		A6C58BE31AD730960082ACCD /* bird2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A6C58BDA1AD730960082ACCD /* bird2@2x.png */; };
+		A6C58BE41AD730960082ACCD /* bottom.png in Resources */ = {isa = PBXBuildFile; fileRef = A6C58BDB1AD730960082ACCD /* bottom.png */; };
+		A6C58BE51AD730960082ACCD /* pipe.png in Resources */ = {isa = PBXBuildFile; fileRef = A6C58BDC1AD730960082ACCD /* pipe.png */; };
+		A6C58BE61AD730960082ACCD /* TapToStart.png in Resources */ = {isa = PBXBuildFile; fileRef = A6C58BDD1AD730960082ACCD /* TapToStart.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -30,16 +37,24 @@
 /* Begin PBXFileReference section */
 		A6C58BA01AD730260082ACCD /* Flappy Bird.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Flappy Bird.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A6C58BA41AD730260082ACCD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		A6C58BA51AD730260082ACCD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		A6C58BA71AD730260082ACCD /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
-		A6C58BA91AD730260082ACCD /* GameScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameScene.swift; sourceTree = "<group>"; };
-		A6C58BAB1AD730260082ACCD /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
-		A6C58BAE1AD730260082ACCD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		A6C58BB01AD730260082ACCD /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		A6C58BB31AD730260082ACCD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		A6C58BB91AD730260082ACCD /* Flappy BirdTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Flappy BirdTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A6C58BBE1AD730260082ACCD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A6C58BBF1AD730260082ACCD /* Flappy_BirdTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Flappy_BirdTests.swift; sourceTree = "<group>"; };
+		A6C58BC91AD730770082ACCD /* Flappy Bird-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Flappy Bird-Bridging-Header.h"; sourceTree = "<group>"; };
+		A6C58BCA1AD730770082ACCD /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		A6C58BCB1AD730770082ACCD /* GameScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameScene.swift; sourceTree = "<group>"; };
+		A6C58BCC1AD730770082ACCD /* GameViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
+		A6C58BCD1AD730770082ACCD /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
+		A6C58BCE1AD730770082ACCD /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		A6C58BD51AD730960082ACCD /* bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bg.png; sourceTree = "<group>"; };
+		A6C58BD61AD730960082ACCD /* bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bg@2x.png"; sourceTree = "<group>"; };
+		A6C58BD71AD730960082ACCD /* bird1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bird1.png; sourceTree = "<group>"; };
+		A6C58BD81AD730960082ACCD /* bird1@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bird1@2x.png"; sourceTree = "<group>"; };
+		A6C58BD91AD730960082ACCD /* bird2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bird2.png; sourceTree = "<group>"; };
+		A6C58BDA1AD730960082ACCD /* bird2@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bird2@2x.png"; sourceTree = "<group>"; };
+		A6C58BDB1AD730960082ACCD /* bottom.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bottom.png; sourceTree = "<group>"; };
+		A6C58BDC1AD730960082ACCD /* pipe.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pipe.png; sourceTree = "<group>"; };
+		A6C58BDD1AD730960082ACCD /* TapToStart.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TapToStart.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -81,14 +96,14 @@
 		A6C58BA21AD730260082ACCD /* Flappy Bird */ = {
 			isa = PBXGroup;
 			children = (
-				A6C58BA51AD730260082ACCD /* AppDelegate.swift */,
-				A6C58BA71AD730260082ACCD /* GameScene.sks */,
-				A6C58BA91AD730260082ACCD /* GameScene.swift */,
-				A6C58BAB1AD730260082ACCD /* GameViewController.swift */,
-				A6C58BAD1AD730260082ACCD /* Main.storyboard */,
-				A6C58BB01AD730260082ACCD /* Images.xcassets */,
-				A6C58BB21AD730260082ACCD /* LaunchScreen.xib */,
+				A6C58BD41AD730840082ACCD /* images */,
+				A6C58BCA1AD730770082ACCD /* AppDelegate.swift */,
+				A6C58BCB1AD730770082ACCD /* GameScene.swift */,
+				A6C58BCC1AD730770082ACCD /* GameViewController.swift */,
+				A6C58BCD1AD730770082ACCD /* Main.storyboard */,
+				A6C58BCE1AD730770082ACCD /* Images.xcassets */,
 				A6C58BA31AD730260082ACCD /* Supporting Files */,
+				A6C58BC91AD730770082ACCD /* Flappy Bird-Bridging-Header.h */,
 			);
 			path = "Flappy Bird";
 			sourceTree = "<group>";
@@ -116,6 +131,22 @@
 				A6C58BBE1AD730260082ACCD /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		A6C58BD41AD730840082ACCD /* images */ = {
+			isa = PBXGroup;
+			children = (
+				A6C58BD51AD730960082ACCD /* bg.png */,
+				A6C58BD61AD730960082ACCD /* bg@2x.png */,
+				A6C58BD71AD730960082ACCD /* bird1.png */,
+				A6C58BD81AD730960082ACCD /* bird1@2x.png */,
+				A6C58BD91AD730960082ACCD /* bird2.png */,
+				A6C58BDA1AD730960082ACCD /* bird2@2x.png */,
+				A6C58BDB1AD730960082ACCD /* bottom.png */,
+				A6C58BDC1AD730960082ACCD /* pipe.png */,
+				A6C58BDD1AD730960082ACCD /* TapToStart.png */,
+			);
+			name = images;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -198,10 +229,17 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A6C58BB41AD730260082ACCD /* LaunchScreen.xib in Resources */,
-				A6C58BB11AD730260082ACCD /* Images.xcassets in Resources */,
-				A6C58BA81AD730260082ACCD /* GameScene.sks in Resources */,
-				A6C58BAF1AD730260082ACCD /* Main.storyboard in Resources */,
+				A6C58BE01AD730960082ACCD /* bird1.png in Resources */,
+				A6C58BE51AD730960082ACCD /* pipe.png in Resources */,
+				A6C58BE21AD730960082ACCD /* bird2.png in Resources */,
+				A6C58BD21AD730770082ACCD /* Main.storyboard in Resources */,
+				A6C58BE61AD730960082ACCD /* TapToStart.png in Resources */,
+				A6C58BD31AD730770082ACCD /* Images.xcassets in Resources */,
+				A6C58BE41AD730960082ACCD /* bottom.png in Resources */,
+				A6C58BE31AD730960082ACCD /* bird2@2x.png in Resources */,
+				A6C58BDE1AD730960082ACCD /* bg.png in Resources */,
+				A6C58BDF1AD730960082ACCD /* bg@2x.png in Resources */,
+				A6C58BE11AD730960082ACCD /* bird1@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -219,9 +257,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A6C58BAA1AD730260082ACCD /* GameScene.swift in Sources */,
-				A6C58BAC1AD730260082ACCD /* GameViewController.swift in Sources */,
-				A6C58BA61AD730260082ACCD /* AppDelegate.swift in Sources */,
+				A6C58BD01AD730770082ACCD /* GameScene.swift in Sources */,
+				A6C58BD11AD730770082ACCD /* GameViewController.swift in Sources */,
+				A6C58BCF1AD730770082ACCD /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -242,25 +280,6 @@
 			targetProxy = A6C58BBA1AD730260082ACCD /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
-
-/* Begin PBXVariantGroup section */
-		A6C58BAD1AD730260082ACCD /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				A6C58BAE1AD730260082ACCD /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
-		A6C58BB21AD730260082ACCD /* LaunchScreen.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				A6C58BB31AD730260082ACCD /* Base */,
-			);
-			name = LaunchScreen.xib;
-			sourceTree = "<group>";
-		};
-/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		A6C58BC11AD730260082ACCD /* Debug */ = {
@@ -348,9 +367,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = "Flappy Bird/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Flappy Bird/Flappy Bird-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
@@ -358,9 +380,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = "Flappy Bird/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Flappy Bird/Flappy Bird-Bridging-Header.h";
 			};
 			name = Release;
 		};
