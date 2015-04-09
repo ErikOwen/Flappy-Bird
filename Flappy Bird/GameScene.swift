@@ -27,32 +27,60 @@ extension Float {
 }
 
 class GameScene: SKScene, SKPhysicsContactDelegate {
+    /*Flappy Bird Sprite*/
+    var bird: SKSpriteNode!;
     
-    // Background
+    /*Background*/
     var background: SKNode!;
     let background_speed = 100.0;
     
-    // Time Values
+    /*Time Values*/
     var delta = NSTimeInterval(0);
     var last_update_time = NSTimeInterval(0);
     
+    /*Floor Height*/
+    let floor_distance: CGFloat = 72.0;
     
-    // MARK: - SKScene Initializacion
+    /*Physics categories*/
+    let FSBoundaryCategory: UInt32 = 1 << 0;
+    let FSPlayerCategory: UInt32 = 1 << 1;
+    let FSPipeCategory: UInt32 = 1 << 2;
+    let FSGapCategory: UInt32 = 1 << 3;
+    
     override func didMoveToView(view: SKView) {
+        initWorld();
         initBackground();
+        initBird();
     }
     
-    // MARK: - Init Physics
     func initWorld() {
+        physicsWorld.gravity = CGVector(dx: 0.0, dy: -5.0);
+        physicsBody = SKPhysicsBody(edgeLoopFromRect: CGRect(x: 0.0, y: floor_distance, width: size.width, height: size.height - floor_distance));
         
+        physicsBody?.categoryBitMask = FSBoundaryCategory;
+        physicsBody?.collisionBitMask = FSPlayerCategory;
     }
     
-    // MARK: - Init Bird
     func initBird() {
+        bird = SKSpriteNode(imageNamed: "bird1");
+        bird.position = CGPoint(x: 100.0, y: CGRectGetMidY(frame));
+        bird.physicsBody = SKPhysicsBody(circleOfRadius: bird.size.width / 2.5);
+        bird.physicsBody?.categoryBitMask = FSPlayerCategory;
+        bird.physicsBody?.contactTestBitMask = FSPipeCategory | FSGapCategory | FSBoundaryCategory;
+        bird.physicsBody?.collisionBitMask = FSPipeCategory | FSBoundaryCategory;
+        bird.physicsBody?.allowsRotation = false;
+        bird.physicsBody?.restitution = 0.0;
+        bird.zPosition = 50;
         
+        self.addChild(bird);
+        
+        let texture1 = SKTexture(imageNamed: "bird1");
+        let texture2 = SKTexture(imageNamed: "bird2");
+        let textures = [texture1, texture2];
+        
+        bird.runAction(SKAction.repeatActionForever(SKAction.animateWithTextures(textures, timePerFrame: 0.1)));
     }
     
-    // MARK: - Background Functions
     func initBackground() {
         background = SKNode();
         addChild(background);
@@ -81,7 +109,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
     }
     
-    // MARK: - Pipes Functions
     func initPipes() {
 
     }
@@ -93,7 +120,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         return pipe
     }
     
-    // MARK: - Game Over helpers
     func gameOver() {
         
     }
@@ -102,21 +128,27 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
     }
     
-    // MARK: - SKPhysicsContactDelegate
     func didBeginContact(contact: SKPhysicsContact!) {
         
     }
     
-    // MARK: - Touch Events
     override func touchesBegan(touches: Set<NSObject>, withEvent event: UIEvent) {
-        /* Called when a touch begins */
+        bird.physicsBody?.applyImpulse(CGVector(dx: 0, dy: 25));
     }
     
-    // MARK: - Frames Per Second
     override func update(currentTime: CFTimeInterval) {
         delta = (last_update_time == 0.0) ? 0.0 : currentTime - last_update_time;
         last_update_time = currentTime;
 
         moveBackground();
+        
+        let velocity_x = bird.physicsBody?.velocity.dx;
+        let velocity_y = bird.physicsBody?.velocity.dy;
+        
+        if bird.physicsBody?.velocity.dy > 280 {
+            bird.physicsBody?.velocity = CGVector(dx: velocity_x!, dy: 280);
+        }
+        
+        bird.zRotation = Float.clamp(-1, max: 0.0, value: velocity_y! * (velocity_y < 0 ? 0.003 : 0.001));
     }
 }

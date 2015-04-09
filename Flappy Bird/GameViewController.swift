@@ -16,33 +16,33 @@ class GameViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        skView.showsFPS = true
-        skView.showsNodeCount = true
-       // skView.showsPhysics   = true
+        skView.showsFPS = true;
+        skView.showsNodeCount = true;
+        skView.showsPhysics   = true;
         
         if skView.scene == nil {
-            let scene = GameScene(size: skView.bounds.size)
-            skView.presentScene(scene)
+            let scene = GameScene(size: skView.bounds.size);
+            skView.presentScene(scene);
         }
     }
 
     override func shouldAutorotate() -> Bool {
-        return true
+        return true;
     }
 
     override func supportedInterfaceOrientations() -> Int {
         if UIDevice.currentDevice().userInterfaceIdiom == .Phone {
-            return Int(UIInterfaceOrientationMask.AllButUpsideDown.rawValue)
+            return Int(UIInterfaceOrientationMask.AllButUpsideDown.rawValue);
         } else {
-            return Int(UIInterfaceOrientationMask.All.rawValue)
+            return Int(UIInterfaceOrientationMask.All.rawValue);
         }
     }
 
     override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
+        super.didReceiveMemoryWarning();
     }
 
     override func prefersStatusBarHidden() -> Bool {
-        return true
+        return true;
     }
 }
