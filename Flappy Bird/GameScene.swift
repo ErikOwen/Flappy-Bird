@@ -68,6 +68,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     func initWorld() {
+        physicsWorld.contactDelegate = self;
         physicsWorld.gravity = CGVector(dx: 0.0, dy: -5.0);
         physicsBody = SKPhysicsBody(edgeLoopFromRect: CGRect(x: 0.0, y: floor_distance, width: size.width, height: size.height - floor_distance));
         
@@ -76,7 +77,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     func initBird() {
-        bird = SKSpriteNode(imageNamed: "bird1");
+        bird = SKSpriteNode(imageNamed: "turtle1");
         bird.position = CGPoint(x: 100.0, y: CGRectGetMidY(frame));
         bird.physicsBody = SKPhysicsBody(circleOfRadius: bird.size.width / 2.5);
         bird.physicsBody?.categoryBitMask = FSPlayerCategory;
@@ -89,8 +90,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         self.addChild(bird);
         
-        let texture1 = SKTexture(imageNamed: "bird1");
-        let texture2 = SKTexture(imageNamed: "bird2");
+        let texture1 = SKTexture(imageNamed: "turtle1");
+        let texture2 = SKTexture(imageNamed: "turtle2");
         let textures = [texture1, texture2];
         
         bird.runAction(SKAction.repeatActionForever(SKAction.animateWithTextures(textures, timePerFrame: 0.1)));
@@ -101,7 +102,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         addChild(background);
         
         for i in 0...2 {
-            let tile = SKSpriteNode(imageNamed: "bg")
+            let tile = SKSpriteNode(imageNamed: "bg");
             tile.anchorPoint = CGPointZero
             tile.position = CGPoint(x: CGFloat(i) * 640.0, y: 0.0)
             tile.name = "bg"
@@ -144,15 +145,26 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     func gameOver() {
+        state = .FSGameStateEnded;
         
+        bird.physicsBody?.categoryBitMask = 0;
+        bird.physicsBody?.collisionBitMask = FSBoundaryCategory;
     }
     
     func restartGame() {
         
     }
     
-    func didBeginContact(contact: SKPhysicsContact!) {
+    func didBeginContact(contact: SKPhysicsContact) {
+        let collision: UInt32 = (contact.bodyA.categoryBitMask | contact.bodyB.categoryBitMask);
         
+        if(collision == (FSPlayerCategory | FSBoundaryCategory)) {
+
+            /*Only ends game if bird hits bottom floor*/
+            if(bird.position.y < 150) {
+                gameOver();
+            }
+        }
     }
     
     override func touchesBegan(touches: Set<NSObject>, withEvent event: UIEvent) {
@@ -166,6 +178,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
         else if(state == .FSGameStatePlaying) {
             bird.physicsBody?.applyImpulse(CGVector(dx: 0, dy: 25));
+            runAction(SKAction.playSoundFileNamed("swoosh.wav", waitForCompletion: false))
         }
     }
     
