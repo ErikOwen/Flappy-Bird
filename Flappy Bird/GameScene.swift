@@ -47,10 +47,24 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     let FSPipeCategory: UInt32 = 1 << 2;
     let FSGapCategory: UInt32 = 1 << 3;
     
+    /*Instructions*/
+    var instructions: SKSpriteNode!
+    
+    /*Different game states*/
+    enum FSGameState: Int {
+        case FSGameStateStarting
+        case FSGameStatePlaying
+        case FSGameStateEnded
+    }
+    
+    /*Current game state*/
+    var state:FSGameState = .FSGameStateStarting;
+    
     override func didMoveToView(view: SKView) {
         initWorld();
         initBackground();
         initBird();
+        initHUD();
     }
     
     func initWorld() {
@@ -68,6 +82,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         bird.physicsBody?.categoryBitMask = FSPlayerCategory;
         bird.physicsBody?.contactTestBitMask = FSPipeCategory | FSGapCategory | FSBoundaryCategory;
         bird.physicsBody?.collisionBitMask = FSPipeCategory | FSBoundaryCategory;
+        bird.physicsBody?.affectedByGravity = false;
         bird.physicsBody?.allowsRotation = false;
         bird.physicsBody?.restitution = 0.0;
         bird.zPosition = 50;
@@ -93,6 +108,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             tile.zPosition = 10
             background.addChild(tile)
         }
+    }
+    
+    func initHUD() {
+        instructions = SKSpriteNode(imageNamed: "TapToStart");
+        instructions.position = CGPoint(x: CGRectGetMidX(frame), y: CGRectGetMidY(frame));
+        instructions.zPosition = 50;
+        
+        addChild(instructions);
     }
     
     func moveBackground() {
@@ -133,7 +156,17 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     override func touchesBegan(touches: Set<NSObject>, withEvent event: UIEvent) {
-        bird.physicsBody?.applyImpulse(CGVector(dx: 0, dy: 25));
+        
+        if(state == .FSGameStateStarting) {
+            state = .FSGameStatePlaying;
+            instructions.hidden = true;
+            
+            bird.physicsBody?.affectedByGravity = true;
+            bird.physicsBody?.applyImpulse(CGVector(dx: 0, dy: 25));
+        }
+        else if(state == .FSGameStatePlaying) {
+            bird.physicsBody?.applyImpulse(CGVector(dx: 0, dy: 25));
+        }
     }
     
     override func update(currentTime: CFTimeInterval) {
