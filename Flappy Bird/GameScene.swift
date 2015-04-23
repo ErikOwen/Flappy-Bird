@@ -26,6 +26,12 @@ extension Float {
     }
 }
 
+extension CGFloat {
+    func degrees_to_radians() -> CGFloat {
+        return CGFloat(M_PI) * self / 180.0;
+    }
+}
+
 class GameScene: SKScene, SKPhysicsContactDelegate {
     /*Flappy Bird Sprite*/
     var bird: SKSpriteNode!;
@@ -37,6 +43,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     /*Time Values*/
     var delta = NSTimeInterval(0);
     var last_update_time = NSTimeInterval(0);
+    
+    let pipe_origin_x: CGFloat = 382.0;
     
     /*Floor Height*/
     let floor_distance: CGFloat = 72.0;
@@ -65,6 +73,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         initBackground();
         initBird();
         initHUD();
+        
+        runAction(SKAction.repeatActionForever((SKAction.sequence([SKAction.waitForDuration(2.0), SKAction.runBlock{self.initPipes()}]))));
     }
     
     func initWorld() {
@@ -134,14 +144,67 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     func initPipes() {
-
+        let screenSize: CGRect = UIScreen.mainScreen().bounds;
+        let isWideScreen: Bool = (screenSize.height > 480);
+        let bottom = getPipeWithSize(CGSize(width: 62, height: Float.range(40, max: isWideScreen ? 360 : 280)), side: false);
+        bottom.position = convertPoint(CGPoint(x: pipe_origin_x, y: CGRectGetMinY(frame) + bottom.size.height / 2 + floor_distance), toNode: background);
+        bottom.physicsBody = SKPhysicsBody(rectangleOfSize: bottom.size);
+        bottom.physicsBody?.categoryBitMask = FSPipeCategory;
+        bottom.physicsBody?.contactTestBitMask = FSPlayerCategory;
+        bottom.physicsBody?.collisionBitMask = FSPlayerCategory;
+        bottom.physicsBody?.dynamic = false;
+        bottom.zPosition = 20;
+        background.addChild(bottom);
+        
+        let threshold = SKSpriteNode(color: UIColor.clearColor(), size: CGSize(width: 10, height: 100));
+        threshold.position = convertPoint(CGPoint(x: pipe_origin_x, y: floor_distance + bottom.size.height + threshold.size.height / 2), toNode: background);
+        threshold.physicsBody = SKPhysicsBody(rectangleOfSize: threshold.size);
+        threshold.physicsBody?.categoryBitMask = FSGapCategory;
+        threshold.physicsBody?.contactTestBitMask = FSPlayerCategory;
+        threshold.physicsBody?.collisionBitMask = 0;
+        threshold.physicsBody?.dynamic = false;
+        threshold.zPosition = 20;
+        background.addChild(threshold);
+        
+        let topSize = size.height - bottom.size.height - threshold.size.height - floor_distance;
+        
+        let top = getPipeWithSize(CGSize(width: 62, height: topSize), side: true);
+        top.position = convertPoint(CGPoint(x: pipe_origin_x, y: CGRectGetMaxY(frame) - top.size.height / 2), toNode: background);
+        top.physicsBody = SKPhysicsBody(rectangleOfSize: top.size);
+        top.physicsBody?.categoryBitMask = FSPipeCategory;
+        top.physicsBody?.contactTestBitMask = FSPlayerCategory;
+        top.physicsBody?.collisionBitMask = FSPlayerCategory;
+        top.physicsBody?.dynamic = false;
+        top.zPosition = 20;
+        background.addChild(top);
+        
     }
     
     func getPipeWithSize(size: CGSize, side: Bool) -> SKSpriteNode {
-        // This function needs to return a SKSpriteNode otherwise a error will appear
-        // to prevent the error while we add the new content just return an empty pipe for now
-        let pipe:SKSpriteNode = SKSpriteNode()
-        return pipe
+        let textureSize = CGRect(x: 0.0, y: 0.0, width: size.width, height: size.height);
+        let backgroundCGImage = UIImage(named: "pipe")!.CGImage;
+        
+        UIGraphicsBeginImageContext(size);
+        let context = UIGraphicsGetCurrentContext();
+        CGContextDrawTiledImage(context, textureSize, backgroundCGImage);
+        let tiledBackground = UIGraphicsGetImageFromCurrentImageContext();
+        UIGraphicsEndImageContext();
+        
+        let backgroundTexture = SKTexture(CGImage: tiledBackground.CGImage);
+        let pipe = SKSpriteNode(texture: backgroundTexture);
+        pipe.zPosition = 1;
+        
+        let cap = SKSpriteNode(imageNamed: "bottom");
+        cap.position = CGPoint(x: 0.0, y: side ? -pipe.size.height / 2 + cap.size.height / 2 : pipe.size.height / 2 - cap.size.height / 2);
+        cap.zPosition = 5;
+        pipe.addChild(cap);
+        
+        if(side == true) {
+            let angle:CGFloat = 180.0;
+            cap.zRotation = angle.degrees_to_radians();
+        }
+        
+        return pipe;
     }
     
     func gameOver() {
