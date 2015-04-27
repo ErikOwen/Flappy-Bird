@@ -144,7 +144,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     func initPipes() {
         let screenSize: CGRect = UIScreen.mainScreen().bounds;
         let isWideScreen: Bool = (screenSize.height > 480);
-        let bottom = getPipeWithSize(CGSize(width: 62, height: Float.range(40, max: isWideScreen ? 360 : 280)), side: false);
+        let bottom = getPipeWithSize(CGSize(width: 62, height: Float.range(30, max: 250)), side: false);
         bottom.position = convertPoint(CGPoint(x: pipe_origin_x, y: CGRectGetMinY(frame) + bottom.size.height / 2 + floor_distance), toNode: background);
         bottom.physicsBody = SKPhysicsBody(rectangleOfSize: bottom.size);
         bottom.physicsBody?.categoryBitMask = FSPipeCategory;
@@ -154,7 +154,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         bottom.zPosition = 20;
         background.addChild(bottom);
         
-        let threshold = SKSpriteNode(color: UIColor.clearColor(), size: CGSize(width: 10, height: 100));
+        let threshold = SKSpriteNode(color: UIColor.clearColor(), size: CGSize(width: 10, height: Float.range(90, max: 150)));
         threshold.position = convertPoint(CGPoint(x: pipe_origin_x, y: floor_distance + bottom.size.height + threshold.size.height / 2), toNode: background);
         threshold.physicsBody = SKPhysicsBody(rectangleOfSize: threshold.size);
         threshold.physicsBody?.categoryBitMask = FSGapCategory;
@@ -253,7 +253,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             bird.physicsBody?.affectedByGravity = true;
             bird.physicsBody?.applyImpulse(CGVector(dx: 0, dy: 25));
             
-            runAction(SKAction.repeatActionForever((SKAction.sequence([SKAction.waitForDuration(2.0), SKAction.runBlock{self.initPipes()}]))));
+            runAction(SKAction.repeatActionForever((SKAction.sequence([SKAction.waitForDuration(2.75, withRange: 1.0), SKAction.runBlock{self.initPipes()}]))));
         }
         else if(state == .FSGameStatePlaying) {
             bird.physicsBody?.applyImpulse(CGVector(dx: 0, dy: 25));
