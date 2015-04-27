@@ -120,7 +120,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     func initHUD() {
-        instructions = SKSpriteNode(imageNamed: "TapToStart");
+        instructions = SKSpriteNode(imageNamed: "tap_to_start");
         instructions.position = CGPoint(x: CGRectGetMidX(frame), y: CGRectGetMidY(frame));
         instructions.zPosition = 50;
         
