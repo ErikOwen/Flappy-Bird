@@ -73,8 +73,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         initBackground();
         initBird();
         initHUD();
-        
-        runAction(SKAction.repeatActionForever((SKAction.sequence([SKAction.waitForDuration(2.0), SKAction.runBlock{self.initPipes()}]))));
     }
     
     func initWorld() {
@@ -215,14 +213,30 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     func restartGame() {
+        state = .FSGameStateStarting;
+        bird.removeFromParent();
+        background.removeAllChildren();
+        background.removeFromParent();
         
+        instructions.hidden = false;
+        removeActionForKey("generator");
+        
+        initBird();
+        initBackground();
     }
     
     func didBeginContact(contact: SKPhysicsContact) {
         let collision: UInt32 = (contact.bodyA.categoryBitMask | contact.bodyB.categoryBitMask);
         
+        if(collision == (FSPlayerCategory | FSGapCategory)) {
+            /*Bird went through gap*/
+        }
+        
+        if(collision == (FSPlayerCategory | FSPipeCategory)) {
+            gameOver();
+        }
+        
         if(collision == (FSPlayerCategory | FSBoundaryCategory)) {
-
             /*Only ends game if bird hits bottom floor*/
             if(bird.position.y < 150) {
                 gameOver();
@@ -238,6 +252,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             
             bird.physicsBody?.affectedByGravity = true;
             bird.physicsBody?.applyImpulse(CGVector(dx: 0, dy: 25));
+            
+            runAction(SKAction.repeatActionForever((SKAction.sequence([SKAction.waitForDuration(2.0), SKAction.runBlock{self.initPipes()}]))));
         }
         else if(state == .FSGameStatePlaying) {
             bird.physicsBody?.applyImpulse(CGVector(dx: 0, dy: 25));
@@ -249,15 +265,21 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         delta = (last_update_time == 0.0) ? 0.0 : currentTime - last_update_time;
         last_update_time = currentTime;
 
-        moveBackground();
-        
-        let velocity_x = bird.physicsBody?.velocity.dx;
-        let velocity_y = bird.physicsBody?.velocity.dy;
-        
-        if bird.physicsBody?.velocity.dy > 280 {
-            bird.physicsBody?.velocity = CGVector(dx: velocity_x!, dy: 280);
+        if(state != .FSGameStateEnded) {
+            moveBackground();
+            
+            let velocity_x = bird.physicsBody?.velocity.dx;
+            let velocity_y = bird.physicsBody?.velocity.dy;
+            
+            if bird.physicsBody?.velocity.dy > 280 {
+                bird.physicsBody?.velocity = CGVector(dx: velocity_x!, dy: 280);
+            }
+            
+            bird.zRotation = Float.clamp(-1, max: 0.0, value: velocity_y! * (velocity_y < 0 ? 0.003 : 0.001));
         }
-        
-        bird.zRotation = Float.clamp(-1, max: 0.0, value: velocity_y! * (velocity_y < 0 ? 0.003 : 0.001));
+        else {
+            bird.zRotation = CGFloat(M_PI);
+            bird.removeAllActions();
+        }
     }
 }
