@@ -47,7 +47,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     let pipe_origin_x: CGFloat = 382.0;
     
     /*Floor Height*/
-    let floor_distance: CGFloat = 72.0;
+    let floor_distance: CGFloat = 61.0;
     
     /*Physics categories*/
     let FSBoundaryCategory: UInt32 = 1 << 0;
@@ -110,7 +110,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         addChild(background);
         
         for i in 0...2 {
-            let tile = SKSpriteNode(imageNamed: "bg");
+            let tile = SKSpriteNode(imageNamed: "bg.jpeg");
             tile.anchorPoint = CGPointZero
             tile.position = CGPoint(x: CGFloat(i) * 640.0, y: 0.0)
             tile.name = "bg"
