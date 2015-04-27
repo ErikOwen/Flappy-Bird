@@ -180,7 +180,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     func getPipeWithSize(size: CGSize, side: Bool) -> SKSpriteNode {
         let textureSize = CGRect(x: 0.0, y: 0.0, width: size.width, height: size.height);
-        let backgroundCGImage = UIImage(named: "pipe")!.CGImage;
+        let backgroundCGImage = UIImage(named: "pipe_base")!.CGImage;
         
         UIGraphicsBeginImageContext(size);
         let context = UIGraphicsGetCurrentContext();
@@ -192,7 +192,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         let pipe = SKSpriteNode(texture: backgroundTexture);
         pipe.zPosition = 1;
         
-        let cap = SKSpriteNode(imageNamed: "bottom");
+        let cap = SKSpriteNode(imageNamed: "pipe_cap");
         cap.position = CGPoint(x: 0.0, y: side ? -pipe.size.height / 2 + cap.size.height / 2 : pipe.size.height / 2 - cap.size.height / 2);
         cap.zPosition = 5;
         pipe.addChild(cap);
