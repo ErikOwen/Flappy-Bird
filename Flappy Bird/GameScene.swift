@@ -257,7 +257,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
         else if(state == .FSGameStatePlaying) {
             bird.physicsBody?.applyImpulse(CGVector(dx: 0, dy: 25));
-            runAction(SKAction.playSoundFileNamed("swoosh.wav", waitForCompletion: false))
+            runAction(SKAction.playSoundFileNamed("floop.wav", waitForCompletion: false))
         }
     }
     
