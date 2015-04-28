@@ -28,8 +28,8 @@ class GameOverScene: SKScene {
         addChild(scoreLabel);
         
         let playAgainLabel = SKLabelNode(fontNamed: "Chalkduster");
-        playAgainLabel.text = "Play Again";
-        playAgainLabel.fontSize = 25;
+        playAgainLabel.text = "Tap Screen To Play Again";
+        playAgainLabel.fontSize = 20;
         playAgainLabel.fontColor = SKColor.greenColor();
         playAgainLabel.position = CGPoint(x: size.width / 2, y: size.height / 4);
         playAgainLabel.name = "restartButton";
@@ -37,25 +37,15 @@ class GameOverScene: SKScene {
     }
     
     override func touchesEnded(touches: Set<NSObject>, withEvent event: UIEvent) {
-        super.touchesBegan(touches, withEvent: event)
+        super.touchesBegan(touches, withEvent: event);
         
-        for touch: AnyObject in touches {
-            
-            let location = touch.locationInNode(self);
-            let touchedNode = nodeAtPoint(location);
-            
-            let nodeName: String? = touchedNode.name;
-            
-            if nodeName == "restartButton" {
-                let restartGameAction = SKAction.runBlock() {
-                    let reveal = SKTransition.flipHorizontalWithDuration(0.5);
-                    let restartGameScene = GameScene(size: self.size);
-                    self.view?.presentScene(restartGameScene, transition: reveal);
-                }
-                
-                runAction(restartGameAction);
-            }
+        let restartGameAction = SKAction.runBlock() {
+            let reveal = SKTransition.flipHorizontalWithDuration(0.5);
+            let restartGameScene = GameScene(size: self.size);
+            self.view?.presentScene(restartGameScene, transition: reveal);
         }
+        
+        runAction(restartGameAction);
     }
 
     

@@ -36,6 +36,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     /*Flappy Bird Sprite*/
     var bird: SKSpriteNode!;
     
+    /*Player's Score*/
+    var score = 0;
+    
     /*Background*/
     var background: SKNode!;
     let background_speed = 100.0;
@@ -213,31 +216,18 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         let gameOverAction = SKAction.runBlock() {
             let reveal = SKTransition.flipHorizontalWithDuration(0.5);
-            let gameOverScene = GameOverScene(size: self.size, score: 0);
+            let gameOverScene = GameOverScene(size: self.size, score: self.score);
             self.view?.presentScene(gameOverScene, transition: reveal);
         }
         
         runAction(SKAction.sequence([SKAction.waitForDuration(2.0), gameOverAction]));
     }
     
-    func restartGame() {
-        state = .FSGameStateStarting;
-        bird.removeFromParent();
-        background.removeAllChildren();
-        background.removeFromParent();
-        
-        instructions.hidden = false;
-        removeActionForKey("generator");
-        
-        initBird();
-        initBackground();
-    }
-    
     func didBeginContact(contact: SKPhysicsContact) {
         let collision: UInt32 = (contact.bodyA.categoryBitMask | contact.bodyB.categoryBitMask);
         
         if(collision == (FSPlayerCategory | FSGapCategory)) {
-            /*Bird went through gap*/
+            score++;
         }
         
         if(collision == (FSPlayerCategory | FSPipeCategory)) {
