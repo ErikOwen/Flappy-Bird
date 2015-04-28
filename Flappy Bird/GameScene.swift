@@ -210,6 +210,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         bird.physicsBody?.categoryBitMask = 0;
         bird.physicsBody?.collisionBitMask = FSBoundaryCategory;
+        
+        let gameOverAction = SKAction.runBlock() {
+            let reveal = SKTransition.flipHorizontalWithDuration(0.5);
+            let gameOverScene = GameOverScene(size: self.size, score: 0);
+            self.view?.presentScene(gameOverScene, transition: reveal);
+        }
+        
+        runAction(SKAction.sequence([SKAction.waitForDuration(2.0), gameOverAction]));
     }
     
     func restartGame() {
