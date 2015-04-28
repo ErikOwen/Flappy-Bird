@@ -20,14 +20,14 @@ class GameOverScene: SKScene {
         bgImage.position = CGPointMake(self.size.width / 2, self.size.height / 2);
         addChild(bgImage);
         
-        let scoreLabel = SKLabelNode(fontNamed: "Chalkduster");
+        let scoreLabel = SKLabelNode(fontNamed: "DamascusSemiBold ");
         scoreLabel.text = "Your score was " + String(score) + "!";
         scoreLabel.fontSize = 25;
         scoreLabel.fontColor = SKColor.blackColor();
         scoreLabel.position = CGPoint(x: size.width / 2, y: size.height / 2);
         addChild(scoreLabel);
         
-        let playAgainLabel = SKLabelNode(fontNamed: "Chalkduster");
+        let playAgainLabel = SKLabelNode(fontNamed: "DamascusSemiBold");
         playAgainLabel.text = "Tap Screen To Play Again";
         playAgainLabel.fontSize = 20;
         playAgainLabel.fontColor = SKColor.greenColor();

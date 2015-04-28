@@ -38,6 +38,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     /*Player's Score*/
     var score = 0;
+    var label_score: SKLabelNode!;
     
     /*Background*/
     var background: SKNode!;
@@ -128,6 +129,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         instructions.zPosition = 50;
         
         addChild(instructions);
+        
+        label_score = SKLabelNode(fontNamed:"DamascusSemiBold");
+        label_score.position = CGPoint(x: CGRectGetMaxX(frame) - 50, y: CGRectGetMaxY(frame) - 25);
+        label_score.fontSize = 15;
+        label_score.fontColor = UIColor.blackColor();
+        label_score.text = "Score: 0";
+        label_score.zPosition = 50;
+        addChild(label_score);
     }
     
     func moveBackground() {
@@ -228,6 +237,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         if(collision == (FSPlayerCategory | FSGapCategory)) {
             score++;
+            label_score.text = "Score: " + String(score);
         }
         
         if(collision == (FSPlayerCategory | FSPipeCategory)) {
