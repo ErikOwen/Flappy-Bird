@@ -2,7 +2,7 @@
 //  GameOverScene.swift
 //  Flappy Bird
 //
-//  Created by Erik Owen on 4/28/15.
+//  Created by Erik Owen on 4/30/15.
 //  Copyright (c) 2015 Erik Owen. All rights reserved.
 //
 
@@ -17,8 +17,8 @@ class GameOverScene: SKScene {
         
         let nodeSpacing = self.size.height / 15;
         
-//        backgroundColor = SKColor.grayColor();
-        let bgImage = SKSpriteNode(imageNamed: "game_over_bg.jpg");
+        //        backgroundColor = SKColor.grayColor();
+        let bgImage = SKSpriteNode(imageNamed: "game_over_background.jpg");
         bgImage.position = CGPointMake(self.size.width / 2, self.size.height / 2);
         addChild(bgImage);
         
@@ -76,7 +76,7 @@ class GameOverScene: SKScene {
         
         runAction(restartGameAction);
     }
-
+    
     
     required init(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
