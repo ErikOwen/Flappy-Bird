@@ -33,8 +33,8 @@ extension CGFloat {
 }
 
 class GameScene: SKScene, SKPhysicsContactDelegate {
-    /*Flappy Bird Sprite*/
-    var bird: SKSpriteNode!;
+    /*Flappy Turtle Sprite*/
+    var turtle: SKSpriteNode!;
     
     /*Player's Score*/
     var score = 0;
@@ -75,7 +75,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     override func didMoveToView(view: SKView) {
         initWorld();
         initBackground();
-        initBird();
+        initTurtle();
         initHUD();
     }
     
@@ -88,25 +88,25 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         physicsBody?.collisionBitMask = FSPlayerCategory;
     }
     
-    func initBird() {
-        bird = SKSpriteNode(imageNamed: "turtle1");
-        bird.position = CGPoint(x: 100.0, y: CGRectGetMidY(frame));
-        bird.physicsBody = SKPhysicsBody(circleOfRadius: bird.size.width / 2.5);
-        bird.physicsBody?.categoryBitMask = FSPlayerCategory;
-        bird.physicsBody?.contactTestBitMask = FSPipeCategory | FSGapCategory | FSBoundaryCategory;
-        bird.physicsBody?.collisionBitMask = FSPipeCategory | FSBoundaryCategory;
-        bird.physicsBody?.affectedByGravity = false;
-        bird.physicsBody?.allowsRotation = false;
-        bird.physicsBody?.restitution = 0.0;
-        bird.zPosition = 50;
+    func initTurtle() {
+        turtle = SKSpriteNode(imageNamed: "turtle1");
+        turtle.position = CGPoint(x: 100.0, y: CGRectGetMidY(frame));
+        turtle.physicsBody = SKPhysicsBody(circleOfRadius: turtle.size.width / 2.5);
+        turtle.physicsBody?.categoryBitMask = FSPlayerCategory;
+        turtle.physicsBody?.contactTestBitMask = FSPipeCategory | FSGapCategory | FSBoundaryCategory;
+        turtle.physicsBody?.collisionBitMask = FSPipeCategory | FSBoundaryCategory;
+        turtle.physicsBody?.affectedByGravity = false;
+        turtle.physicsBody?.allowsRotation = false;
+        turtle.physicsBody?.restitution = 0.0;
+        turtle.zPosition = 50;
         
-        self.addChild(bird);
+        self.addChild(turtle);
         
         let texture1 = SKTexture(imageNamed: "turtle1");
         let texture2 = SKTexture(imageNamed: "turtle2");
         let textures = [texture1, texture2];
         
-        bird.runAction(SKAction.repeatActionForever(SKAction.animateWithTextures(textures, timePerFrame: 0.1)));
+        turtle.runAction(SKAction.repeatActionForever(SKAction.animateWithTextures(textures, timePerFrame: 0.1)));
     }
     
     func initBackground() {
@@ -247,8 +247,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     func gameOver() {
         state = .FSGameStateEnded;
         
-        bird.physicsBody?.categoryBitMask = 0;
-        bird.physicsBody?.collisionBitMask = FSBoundaryCategory;
+        turtle.physicsBody?.categoryBitMask = 0;
+        turtle.physicsBody?.collisionBitMask = FSBoundaryCategory;
         
         saveScore();
         
@@ -274,8 +274,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
         
         if(collision == (FSPlayerCategory | FSBoundaryCategory)) {
-            /*Only ends game if bird hits bottom floor*/
-            if(bird.position.y < 150) {
+            /*Only ends game if turtle hits bottom floor*/
+            if(turtle.position.y < 150) {
                 gameOver();
             }
         }
@@ -287,13 +287,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             state = .FSGameStatePlaying;
             instructions.hidden = true;
             
-            bird.physicsBody?.affectedByGravity = true;
-            bird.physicsBody?.applyImpulse(CGVector(dx: 0, dy: 25));
+            turtle.physicsBody?.affectedByGravity = true;
+            turtle.physicsBody?.applyImpulse(CGVector(dx: 0, dy: 25));
             
             runAction(SKAction.repeatActionForever((SKAction.sequence([SKAction.waitForDuration(2.75, withRange: 1.0), SKAction.runBlock{self.initPipes()}]))));
         }
         else if(state == .FSGameStatePlaying) {
-            bird.physicsBody?.applyImpulse(CGVector(dx: 0, dy: 25));
+            turtle.physicsBody?.applyImpulse(CGVector(dx: 0, dy: 25));
             runAction(SKAction.playSoundFileNamed("floop.wav", waitForCompletion: false))
         }
     }
@@ -301,22 +301,22 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     override func update(currentTime: CFTimeInterval) {
         delta = (last_update_time == 0.0) ? 0.0 : currentTime - last_update_time;
         last_update_time = currentTime;
-
+        
         if(state != .FSGameStateEnded) {
             moveBackground();
             
-            let velocity_x = bird.physicsBody?.velocity.dx;
-            let velocity_y = bird.physicsBody?.velocity.dy;
+            let velocity_x = turtle.physicsBody?.velocity.dx;
+            let velocity_y = turtle.physicsBody?.velocity.dy;
             
-            if bird.physicsBody?.velocity.dy > 280 {
-                bird.physicsBody?.velocity = CGVector(dx: velocity_x!, dy: 280);
+            if turtle.physicsBody?.velocity.dy > 280 {
+                turtle.physicsBody?.velocity = CGVector(dx: velocity_x!, dy: 280);
             }
             
-            bird.zRotation = Float.clamp(-1, max: 0.0, value: velocity_y! * (velocity_y < 0 ? 0.003 : 0.001));
+            turtle.zRotation = Float.clamp(-1, max: 0.0, value: velocity_y! * (velocity_y < 0 ? 0.003 : 0.001));
         }
         else {
-            bird.zRotation = CGFloat(M_PI);
-            bird.removeAllActions();
+            turtle.zRotation = CGFloat(M_PI);
+            turtle.removeAllActions();
         }
     }
 }
