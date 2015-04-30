@@ -217,11 +217,40 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         return pipe;
     }
     
+    func saveScore() {
+        var defaults = NSUserDefaults.standardUserDefaults();
+        
+        //read
+        if let testArray : AnyObject? = defaults.objectForKey("scores") {
+            var savedScores : [NSInteger];
+            
+            if(testArray != nil) {
+                savedScores = testArray! as! [NSInteger];
+                savedScores.append(score);
+                savedScores.sort{$1 < $0};
+                
+                if(savedScores.count > 5) {
+                    savedScores.removeLast();
+                }
+            }
+            else {
+                savedScores = [NSInteger]();
+                savedScores.append(score);
+            }
+            
+            /*save scores*/
+            defaults.setObject(savedScores, forKey: "scores");
+            defaults.synchronize();
+        }
+    }
+    
     func gameOver() {
         state = .FSGameStateEnded;
         
         bird.physicsBody?.categoryBitMask = 0;
         bird.physicsBody?.collisionBitMask = FSBoundaryCategory;
+        
+        saveScore();
         
         let gameOverAction = SKAction.runBlock() {
             let reveal = SKTransition.flipHorizontalWithDuration(0.5);
